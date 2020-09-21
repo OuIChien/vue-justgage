@@ -612,10 +612,11 @@ var JustGage = function(config) {
     ]
   });
 
+  var color = getColor(obj.config.value, (obj.config.value - obj.config.min) / (obj.config.max - obj.config.min), obj.config.levelColors, obj.config.noGradient, obj.config.customSectors);
   // level
   obj.level = obj.canvas.path().attr({
     "stroke": "none",
-    "fill": getColor(obj.config.value, (obj.config.value - obj.config.min) / (obj.config.max - obj.config.min), obj.config.levelColors, obj.config.noGradient, obj.config.customSectors),
+    "fill": color,
     pki: [
       obj.config.min,
       obj.config.min,
@@ -676,7 +677,7 @@ var JustGage = function(config) {
     "font-size": obj.params.valueFontSize,
     "font-weight": "bold",
     "font-family": obj.config.valueFontFamily,
-    "fill": obj.config.valueFontColor,
+    "fill": color,//obj.config.valueFontColor,
     "fill-opacity": "0"
   });
   setDy(obj.txtValue, obj.params.valueFontSize, obj.params.valueY);
@@ -897,7 +898,8 @@ JustGage.prototype.refresh = function(val, max) {
 
   if (!obj.config.counter) {
     obj.txtValue.attr({
-      "text": displayVal
+      "text": displayVal,
+      "fill": color
     });
     setDy(obj.txtValue, obj.params.valueFontSize, obj.params.valueY);
   }
